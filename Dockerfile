@@ -1,17 +1,17 @@
-FROM phpearth/php:7.3-nginx
+FROM npulidom/alpine-phalcon
+
+RUN apk add --no-cache \
+    php7-mongodb \
+    php7-pdo \
+    php7-pdo_mysql \
+    php7-gd \
+    composer
 
 COPY nginx.conf /etc/nginx/nginx.conf
 
 COPY vhost.conf /etc/nginx/conf.d/default.conf
 
-COPY www.conf /etc/php/7.3/php-fpm.d/www.conf
-
-RUN apk add --no-cache \
-    php7.3-mongodb \
-    php7.3-pdo \
-    php7.3-pdo_mysql \
-    php7.3-gd \
-    composer
+COPY www.conf /etc/php7/php-fpm.d/www.conf
 
 ONBUILD WORKDIR /home/public_html/app
 
